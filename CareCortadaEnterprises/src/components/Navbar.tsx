@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { ShoppingCartIcon } from '@heroicons/react/20/solid';
+import { useSelector } from 'react-redux';
 
 const NavbarComp: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const carts = useSelector((state: any) => state.cart.items);
+  useEffect(() => {
+    let total = 0;
+    carts.forEach((item: any) => {
+      total += item.quantity;
+    });
+    setTotalQuantity(total);
+  }
+  , [carts]);
 
   return (
     <nav className="bg-primary w-full fixed top-0 left-0 font-sans z-50 h-16">
@@ -21,7 +33,11 @@ const NavbarComp: React.FC = () => {
                 <Link to="/photos" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Photos</Link>
                 <Link to="/membership" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Membership</Link>
                 <Link to="/contact-us" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Contact Us</Link>
-                <Link to="/cart" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Cart</Link>
+                <div className="w-10 h-10 bg-gray-100 rounded-full flex justify-center items-center relative">
+                  <ShoppingCartIcon className="w-6 text-complement2" />
+                  <span className='absolute top-2/3 right-1/2 bg-complement3 text-white text-sm w-5 h-5 rounded-full flex justify-center items-center '>{totalQuantity}</span>
+
+                </div>
               </div>
             </div>
           </div>
@@ -58,6 +74,11 @@ const NavbarComp: React.FC = () => {
             <Link to="/photos" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Photos</Link>
             <Link to="/membership" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Membership</Link>
             <Link to="/contact-us" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Contact Us</Link>
+            <div className="w-10 h-10 bg-gray-100 rounded-full flex justify-center items-center relative">
+                  <ShoppingCartIcon className="w-6 text-complement2" />
+                  <span className='absolute top-2/3 right-1/2 bg-complement3 text-white text-sm w-5 h-5 rounded-full flex justify-center items-center '>{totalQuantity}</span>
+
+                </div>
           </div>
         </div>
       )}
