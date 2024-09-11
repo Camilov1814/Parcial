@@ -1,13 +1,15 @@
 import MakeupCard from '../components/MakeupCard';
 import Navbar from '../components/Navbar';
 import { makeup } from '../products/makeup';
-
+import { CartTab } from '../components/CartTab';
 
 const Home = () => {
   return (
     <>
-      <div className="flex flex-col items-center pt-16">  {/* Added padding */}
+      <div className="flex flex-col items-center ">  {/* Added padding */}
+      <CartTab />
         <Navbar />
+        
 
         {/* Hero Section */}
         <section className="w-full bg-complement2 text-center py-20">

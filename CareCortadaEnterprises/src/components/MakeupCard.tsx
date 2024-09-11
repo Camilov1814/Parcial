@@ -35,8 +35,8 @@ const MakeupCard = (props: MakeupCardProps) => {
             <p>
                 $<span className='text-2xl font-medium'>{price.toFixed(2)}</span>
             </p>
-            <button className='bg-primary text-sm p-2 rounded-md hover:bg-secondary flex gap-2' onClick={handleAddCart}>
-            <ShoppingCartIcon className="w-5  text-background-main hover:text-complement1" />
+            <button className='bg-primary  text-complement3 text-sm p-2 rounded-md hover:bg-secondary flex gap-2' onClick={handleAddCart}>
+            <ShoppingCartIcon className="w-5  text-complement3" />
                 Add to Cart
             </button>
         </div>
