@@ -30,7 +30,7 @@ const Photos = () => {
     return (
         <div className="bg-complement2 shadow-sm transition-transform transform hover:shadow-lg min-h-screen">
             <div className="ml-4 mr-4">
-                <h1 className="text-3xl font-bold mb-4">Photo Sales</h1>
+                <h1 className="text-3xl font-bold mb-4 mt-4">Photo Sales</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {initialPhotos.map((photo) => (
                         <div key={photo.id} className="border rounded-lg p-4 shadow-lg">

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { DetailMakeup } from './pages/DetailMakeup';
 import MakeupEvents from './pages/Events';
 import PhotoSales from './pages/PhotoSales';
+import MembershipPage from './pages/Membership';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/makeup/:slug" element={<DetailMakeup />} />
           <Route path="/events" element={<MakeupEvents />} />
           <Route path='/photos' element={<PhotoSales/>} />
+          <Route path='/membership' element={<MembershipPage/>} />
         </Routes>
       </Router>
     </div>
