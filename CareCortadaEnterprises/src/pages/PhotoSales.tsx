@@ -18,8 +18,7 @@ interface Photo {
 
 
 const PhotoSales: React.FC = () => {
-    const statusTabCart = useSelector((state: any) => state.cart.statusTab);
-   return(
+    return(
     <>
     <CartTab />
     <Navbarcomp />
