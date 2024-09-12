@@ -35,7 +35,7 @@ const NavbarComp: React.FC = () => {
                 <Link to="/home" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                 <Link to="/models" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Models</Link>
                 <Link to="/makeup" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Makeup</Link>
-                <Link to="/fashion-events" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Fashion Events</Link>
+                <Link to="/events" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Fashion Events</Link>
                 <Link to="/photos" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Photos</Link>
                 <Link to="/membership" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Membership</Link>
                 <Link to="/contact-us" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Contact Us</Link>
@@ -76,7 +76,7 @@ const NavbarComp: React.FC = () => {
             <Link to="/home" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Home</Link>
             <Link to="/models" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Models</Link>
             <Link to="/makeup" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Makeup</Link>
-            <Link to="/fashion-events" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Fashion Events</Link>
+            <Link to="/events" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Fashion Events</Link>
             <Link to="/photos" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Photos</Link>
             <Link to="/membership" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Membership</Link>
             <Link to="/contact-us" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Contact Us</Link>

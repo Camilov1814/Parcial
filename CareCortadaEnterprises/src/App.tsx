@@ -4,6 +4,7 @@ import { Makeup } from './pages/Makeup';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { DetailMakeup } from './pages/DetailMakeup';
+import MakeupEvents from './pages/Events';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/makeup" element={<Makeup />} />
           <Route path="/makeup/:slug" element={<DetailMakeup />} />
+          <Route path="/events" element={<MakeupEvents />} />
         </Routes>
       </Router>
     </div>
