@@ -1,4 +1,3 @@
-import React from 'react';
 import Home from './pages/Home';
 import { Makeup } from './pages/Makeup';
 import './App.css';
@@ -9,6 +8,7 @@ import PhotoSales from './pages/PhotoSales';
 import MembershipPage from './pages/Membership';
 import ModelDetails from './pages/DetailModel';
 import Models from './pages/Models';
+import ContactUsPage from './pages/ContactUs';
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
           <Route path='/membership' element={<MembershipPage/>} />
           <Route path='/models/:slug' element={<ModelDetails/>} />
           <Route path='/models' element={<Models/>} />
+          <Route path='ContactUs' element={<ContactUsPage/>} />
           
         </Routes>
       </Router>

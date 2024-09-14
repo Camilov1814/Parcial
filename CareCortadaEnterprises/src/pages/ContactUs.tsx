@@ -1,18 +1,17 @@
-import React from "react";
 import NavbarComp from "../components/Navbar";
-import Membership from "../components/Membership";
+import ContactUs from "../components/ContactUs";
 import {CartTab} from "../components/CartTab";
 
-const MembershipPage: React.FC = () => {
+const ContactUsPage: React.FC = () => {
     return (
         <>
         <div className="bg-complement2 shadow-sm transition-transform transform hover:shadow-lg min-h-screen">
         <CartTab />
-        <NavbarComp />
-        <Membership />
+        <NavbarComp/>
+        <ContactUs/>
         </div>
         </>
     );
 }
 
-export default MembershipPage;
+export default ContactUsPage;

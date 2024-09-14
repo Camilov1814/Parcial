@@ -38,7 +38,7 @@ const NavbarComp: React.FC = () => {
                 <Link to="/events" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Fashion Events</Link>
                 <Link to="/photos" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Photos</Link>
                 <Link to="/membership" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Membership</Link>
-                <Link to="/contact-us" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Contact Us</Link>
+                <Link to="/contactUs" className="font-title text-background-main hover:bg-secondary hover:text-background-main px-3 py-2 rounded-md text-sm font-medium">Contact Us</Link>
                 <div className="w-10 h-10 bg-gray-100 rounded-full flex justify-center items-center relative">
                   <ShoppingCartIcon className="w-6 text-complement2" onClick={handleOpenTabCart} />
                   <span className='absolute top-2/3 right-1/2 bg-complement3 text-white text-sm w-5 h-5 rounded-full flex justify-center items-center '>{totalQuantity}</span>
@@ -79,7 +79,7 @@ const NavbarComp: React.FC = () => {
             <Link to="/events" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Fashion Events</Link>
             <Link to="/photos" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Photos</Link>
             <Link to="/membership" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Membership</Link>
-            <Link to="/contact-us" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Contact Us</Link>
+            <Link to="/contactUs" className="font-title text-background-main hover:bg-secondary hover:text-background-main block w-full text-left px-3 py-2 rounded-md text-base font-medium">Contact Us</Link>
             <div className="w-10 h-10 bg-gray-100 rounded-full flex justify-center items-center relative">
                   <ShoppingCartIcon className="w-6 text-complement2" onClick={handleOpenTabCart} />
                   <span className='absolute top-2/3 right-1/2 bg-complement3 text-white text-sm w-5 h-5 rounded-full flex justify-center items-center '>{totalQuantity}</span>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-
+import {models} from '../products/models' // Importar el array de modelos
 
 interface Event {
     id: number;
@@ -15,14 +15,14 @@ const initialEvents: Event[] = [
         id: 1,
         date: '2024-09-20',
         location: 'New York, USA',
-        models: ['Model 1', 'Model 2'],
+        models: ['Adriana', 'Sara'],
         image: 'https://mbmarcobeteta.com/wp-content/uploads/2021/02/shutterstock_248799484-scaled.jpg',
     },
     {
         id: 2,
         date: '2024-10-05',
         location: 'Paris, France',
-        models: ['Model 3', 'Model 4'],
+        models: ['Sindy', 'Gisele'],
         image: 'https://images.adsttc.com/media/images/5d44/14fa/284d/d1fd/3a00/003d/large_jpg/eiffel-tower-in-paris-151-medium.jpg?1564742900',
     },
 ];
@@ -36,31 +36,29 @@ const MakeupEvents: React.FC = () => {
         models: [],
         image: '',
     });
-    const [modelInput, setModelInput] = useState<string>('');
+    const [selectedModel, setSelectedModel] = useState<string>(''); // Guardar el modelo seleccionado
     const [showForm, setShowForm] = useState<boolean>(false); // Estado para controlar visibilidad del formulario
 
     const handleAddEvent = () => {
         if (newEvent.date && newEvent.location && newEvent.models.length > 0 && newEvent.image) {
             setEvents([...events, { ...newEvent, id: events.length + 1 }]);
             setNewEvent({ id: events.length + 2, date: '', location: '', models: [], image: '' });
-            setModelInput('');
+            setSelectedModel('');
             setShowForm(false); // Oculta el formulario después de agregar el evento
         }
     };
 
     const handleModelAdd = () => {
-        if (modelInput) {
-            setNewEvent({ ...newEvent, models: [...newEvent.models, modelInput] });
-            setModelInput('');
+        if (selectedModel && !newEvent.models.includes(selectedModel)) { // Evitar modelos duplicados
+            setNewEvent({ ...newEvent, models: [...newEvent.models, selectedModel] });
+            setSelectedModel('');
         }
     };
 
     return (
-
         <div className="bg-complement2 rounded-xl shadow-sm transition-transform transform hover:shadow-lg min-h-screen">
             <Navbar />
             <div className='ml-4 mr-4'>
-
                 <h2 className="text-3xl font-extrabold text-pink-800 mb-6 mt-4">
                     Upcoming Fashion Events & Makeup Shows
                 </h2>
@@ -106,15 +104,22 @@ const MakeupEvents: React.FC = () => {
                                 placeholder="Enter image URL"
                             />
                         </div>
+
+                        {/* Selección de modelos */}
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">Add Model</label>
-                            <input
-                                type="text"
-                                value={modelInput}
-                                onChange={(e) => setModelInput(e.target.value)}
+                            <select
+                                value={selectedModel}
+                                onChange={(e) => setSelectedModel(e.target.value)}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                                placeholder="Enter model name"
-                            />
+                            >
+                                <option value="">Select a model</option>
+                                {models.map((model) => (
+                                    <option key={model.id} value={model.name}>
+                                        {model.name}
+                                    </option>
+                                ))}
+                            </select>
 
                             <button
                                 onClick={handleModelAdd}
@@ -127,6 +132,7 @@ const MakeupEvents: React.FC = () => {
                                 <strong>Models: </strong>{newEvent.models.join(', ')}
                             </div>
                         </div>
+
                         <button
                             onClick={handleAddEvent}
                             className="bg-primary text-sm p-2 rounded-md hover:bg-secondary flex gap-2"
@@ -140,18 +146,11 @@ const MakeupEvents: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {events.map((event) => (
                         <div key={event.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
-                            <img
-                                src={event.image}
-                                alt={`Event at ${event.location}`}
-                                className="w-full h-48 object-cover"
-                            />
+                            <img src={event.image} alt={event.location} className="w-full h-48 object-cover" />
                             <div className="p-4">
-                                <p className="text-lg font-semibold text-gray-700 mb-2">{event.date}</p>
-                                <p className="text-pink-600 text-md font-bold">{event.location}</p>
-                                <p className="text-gray-600 text-sm mt-2">
-                                    <strong>Participating Models:</strong> {event.models.join(', ')}
-                                </p>
-                                
+                                <h3 className="text-lg font-bold">{event.location}</h3>
+                                <p className="text-gray-600">{event.date}</p>
+                                <p className="text-gray-700 mt-2">Models: {event.models.join(', ')}</p>
                             </div>
                         </div>
                     ))}
