@@ -2,6 +2,7 @@ import MakeupCard from '../components/MakeupCard';
 import Navbar from '../components/Navbar';
 import { makeup } from '../products/makeup';
 import { CartTab } from '../components/CartTab';
+import Carrousel from '../components/Carrousel';
 
 const Home = () => {
   return (
@@ -30,38 +31,14 @@ const Home = () => {
         {/* Featured Models */}
         <section className="w-full py-16">
           <div className="container mx-auto">
-            <h2 className="text-3xl font-title font-bold text-primary mb-6">
-              Featured Models
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {/* Replace with actual model data and images */}
-              <div className="bg-white p-4 rounded shadow hover:shadow-md">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Model 1"
-                  className="w-full h-48 object-cover rounded mb-4"
-                />
-                <h4 className="text-xl font-title font-semibold mb-2">Model 1</h4>
-                <p className="text-complement1 font-sans mb-2">View portfolio</p>
-              </div>
-              <div className="bg-white p-4 rounded shadow hover:shadow-md">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Model 2"
-                  className="w-full h-48 object-cover rounded mb-4"
-                />
-                <h4 className="text-xl font-title font-semibold mb-2">Model 2</h4>
-                <p className="text-complement1 font-sans mb-2">View portfolio</p>
-              </div>
-              {/* Add more model cards here */}
-            </div>
+            <Carrousel />
           </div>
         </section>
 
         {/* Featured Products */}
         <section className="w-full py-16 bg-gray-100">
           <div className="container mx-auto">
-            <h2 className="text-3xl font-title font-bold text-primary mb-6">
+            <h2 className="text-3xl font-title font-bold text-primary mb-6 text-center">
               Featured Products
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

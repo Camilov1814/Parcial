@@ -9,8 +9,8 @@ import Photos from '../components/Photo';
 const PhotoSales: React.FC = () => {
     return(
     <>
-    <div className="bg-complement2 shadow-sm transition-transform transform hover:shadow-lg min-h-screen">
     <CartTab />
+    <div className="bg-complement2 shadow-sm transition-transform transform hover:shadow-lg min-h-screen">
     <Navbarcomp />
     <Photos />
     </div>

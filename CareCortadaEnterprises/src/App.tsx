@@ -7,6 +7,8 @@ import { DetailMakeup } from './pages/DetailMakeup';
 import MakeupEvents from './pages/Events';
 import PhotoSales from './pages/PhotoSales';
 import MembershipPage from './pages/Membership';
+import ModelDetails from './pages/DetailModel';
+import Models from './pages/Models';
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
           <Route path="/events" element={<MakeupEvents />} />
           <Route path='/photos' element={<PhotoSales/>} />
           <Route path='/membership' element={<MembershipPage/>} />
+          <Route path='/models/:slug' element={<ModelDetails/>} />
+          <Route path='/models' element={<Models/>} />
+          
         </Routes>
       </Router>
     </div>

@@ -42,7 +42,7 @@ export const CartItem = (props: CartTabProps) => {
         <div className="flex justify-between items-center bg-slate-600 text-white p-2 border-b-2 border-slate-700 gap-5 rounded-md">
             <img src={detail?.imageUrl || detail?.image} alt={detail?.name || detail?.title} className="w-12 h-20 object-cover object-top rounded-md" />
             <h3 className="text-lg font-title font-semibold">{detail?.name || detail?.title}</h3>
-            <p className="text-black font-sans"> ${quantity * (detail?.price || 0)}</p>
+            <p className="text-black font-sans"> ${(quantity * (detail?.price || 0)).toFixed(2)}</p>
             <div className="w-20 flex justify-between">
                 <button className="bg-primary text-white p-2 rounded-md" onClick={handleMinusQ}>-</button>
                 <span className="bg-primary text-black p-2 rounded-md">{quantity}</span>
