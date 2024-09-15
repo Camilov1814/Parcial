@@ -18,6 +18,7 @@ Care Cortada Enterprise es una aplicación web de e-commerce desarrollada con Re
 - React Slick (para el carrusel)
 
 ## Instalacion 
-Dirigirse a la carpeta del proyecto Parcial/CareCortadaEnterprises
+- Dirigirse a la carpeta del proyecto Parcial/CareCortadaEnterprises
 cd CareCortadaEnterprises
+
 npm run dev
