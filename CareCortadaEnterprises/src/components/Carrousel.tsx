@@ -50,7 +50,7 @@ const FeaturedModelsCarousel: React.FC = () => {
                   <img src={model.image[0]} alt={model.name} className="w-full h-64 object-cover" />
                   <div className="p-4">
                     <h3 className="font-title text-xl text-primary">{model.name}</h3>
-                    <p className="text-complement1 text-sm mt-2">{model.description}</p>
+                    <p className="text-complement1 text-sm mt-2">Supermodel from {model.country}</p>
                   </div>
                 </div>
               </Link>

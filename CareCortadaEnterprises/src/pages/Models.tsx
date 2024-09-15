@@ -4,16 +4,21 @@ import { models } from '../products/models';
 import NavbarComp from '../components/Navbar';
 
 const ModelList: React.FC = () => {
-  const [sortBy, setSortBy] = useState<'name' | 'id'>('name');
+  const [sortBy, setSortBy] = useState<'name' | 'experience'>('name');
   const [searchTerm, setSearchTerm] = useState('');
 
   const sortedAndFilteredModels = models
-    .filter((model) => 
-      model.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      model.description.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) => a[sortBy].toString().localeCompare(b[sortBy].toString()));
-
+  .filter((model) =>
+    model.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    model.experience.toString().includes(searchTerm.toLowerCase())
+  )
+  .sort((a, b) => {
+    if (sortBy === 'experience') {
+      return b.experience - a.experience;
+    } else {
+      return a[sortBy].toString().localeCompare(b[sortBy].toString());
+    }
+  });
   return (
     <>
     <NavbarComp />
@@ -26,11 +31,11 @@ const ModelList: React.FC = () => {
           <select 
             id="sort"
             value={sortBy} 
-            onChange={(e) => setSortBy(e.target.value as 'name' | 'id')}
+            onChange={(e) => setSortBy(e.target.value as 'name' | 'experience')}
             className="p-2 rounded border border-complement1"
           >
             <option value="name">Name</option>
-            <option value="id">ID</option>
+            <option value="experience">Experience</option>
           </select>
         </div>
         <div>
@@ -41,7 +46,7 @@ const ModelList: React.FC = () => {
             value={searchTerm} 
             onChange={(e) => setSearchTerm(e.target.value)}
             className="p-2 rounded border border-complement1"
-            placeholder="Search by name or description"
+            placeholder="Search by name"
           />
         </div>
       </div>
@@ -53,7 +58,7 @@ const ModelList: React.FC = () => {
               <img src={model.image[0]} alt={model.name} className="w-full h-64 object-cover" />
               <div className="p-4">
                 <h2 className="font-title text-2xl text-primary mb-2">{model.name}</h2>
-                <p className="text-complement1">{model.description}</p>
+                <p className="text-complement1">A super model from {model.country}</p>
               </div>
             </div>
           </Link>
