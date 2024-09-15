@@ -11,7 +11,6 @@ interface Photo {
 }
 
 const Photos = () => {
-    const carts = useSelector((state: any) => state.cart.items);
     const dispatch = useDispatch();
 
     const [selectedOption, setSelectedOption] = useState<{ [key: number]: string }>({});

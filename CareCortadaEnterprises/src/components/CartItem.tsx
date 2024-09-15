@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+
 import { useEffect, useState } from "react";
 import { makeup } from "../products/makeup";
 import { initialPhotos } from "../products/photos";  // Importamos las fotos
