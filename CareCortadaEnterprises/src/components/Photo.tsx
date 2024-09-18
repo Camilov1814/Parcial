@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addToCart } from '../stores/cart';
 import { useState } from 'react';
 import { initialPhotos } from '../products/photos';
