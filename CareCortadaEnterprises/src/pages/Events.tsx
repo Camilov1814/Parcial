@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import {models} from '../products/models' // Importar el array de modelos
+import { fetchEvents, fetchModels, addEvent } from '../services/api'; // Importa la función addEvent
 
 interface Event {
     id: number;
@@ -10,48 +10,60 @@ interface Event {
     image: string;
 }
 
-const initialEvents: Event[] = [
-    {
-        id: 1,
-        date: '2024-09-20',
-        location: 'New York, USA',
-        models: ['Adriana', 'Sara'],
-        image: 'https://mbmarcobeteta.com/wp-content/uploads/2021/02/shutterstock_248799484-scaled.jpg',
-    },
-    {
-        id: 2,
-        date: '2024-10-05',
-        location: 'Paris, France',
-        models: ['Sindy', 'Gisele'],
-        image: 'https://images.adsttc.com/media/images/5d44/14fa/284d/d1fd/3a00/003d/large_jpg/eiffel-tower-in-paris-151-medium.jpg?1564742900',
-    },
-];
+interface Model {
+    id: number;
+    name: string;
+}
 
 const MakeupEvents: React.FC = () => {
-    const [events, setEvents] = useState<Event[]>(initialEvents);
+    const [events, setEvents] = useState<Event[]>([]); // Eventos cargados de la API
     const [newEvent, setNewEvent] = useState<Event>({
-        id: events.length + 1,
+        id: 0,
         date: '',
         location: '',
         models: [],
         image: '',
     });
-    const [selectedModel, setSelectedModel] = useState<string>(''); // Guardar el modelo seleccionado
-    const [showForm, setShowForm] = useState<boolean>(false); // Estado para controlar visibilidad del formulario
+    const [selectedModel, setSelectedModel] = useState<string>(''); // Modelo seleccionado
+    const [models, setModels] = useState<Model[]>([]); // Modelos cargados de la API
+    const [showForm, setShowForm] = useState<boolean>(false); // Control de visibilidad del formulario
 
-    const handleAddEvent = () => {
+    // Obtener los modelos desde la API
+    useEffect(() => {
+        const getModels = async () => {
+            const modelsData = await fetchModels(); // Usamos la función fetchModels
+            setModels(modelsData); // Actualiza el estado con los modelos obtenidos
+        };
+        getModels();
+    }, []); // Este efecto se ejecuta solo una vez cuando el componente se monta
+
+    // Obtener los eventos desde la API
+    useEffect(() => {
+        const getEvents = async () => {
+            const eventsData = await fetchEvents(); // Usamos la función fetchEvents
+            setEvents(eventsData); // Actualiza el estado con los eventos obtenidos
+        };
+        getEvents();
+    }, []); // Este efecto se ejecuta solo una vez cuando el componente se monta
+
+    const handleAddEvent = async () => {
         if (newEvent.date && newEvent.location && newEvent.models.length > 0 && newEvent.image) {
-            setEvents([...events, { ...newEvent, id: events.length + 1 }]);
-            setNewEvent({ id: events.length + 2, date: '', location: '', models: [], image: '' });
-            setSelectedModel('');
-            setShowForm(false); // Oculta el formulario después de agregar el evento
+            const addedEvent = await addEvent(newEvent); // Usamos la función addEvent para enviar el nuevo evento
+
+            if (addedEvent) {
+                // Si el evento fue agregado correctamente, lo agregamos al estado
+                setEvents([...events, addedEvent]);
+                setNewEvent({ id: events.length + 2, date: '', location: '', models: [], image: '' });
+                setSelectedModel('');
+                setShowForm(false); // Oculta el formulario después de agregar el evento
+            }
         }
     };
 
     const handleModelAdd = () => {
-        if (selectedModel && !newEvent.models.includes(selectedModel)) { // Evitar modelos duplicados
+        if (selectedModel && !newEvent.models.includes(selectedModel)) { // Evitar duplicados
             setNewEvent({ ...newEvent, models: [...newEvent.models, selectedModel] });
-            setSelectedModel('');
+            setSelectedModel(''); // Limpiar la selección de modelo
         }
     };
 
@@ -71,7 +83,7 @@ const MakeupEvents: React.FC = () => {
                     {showForm ? 'Hide Event Form' : 'Add New Event'}
                 </button>
 
-                {/* Formulario para agregar eventos, solo visible si showForm es true */}
+                {/* Formulario para agregar eventos */}
                 {showForm && (
                     <div className="mb-10 p-4 bg-white shadow rounded-lg max-w-md">
                         <h3 className="text-xl font-bold text-gray-700 mb-4">Add New Event</h3>
