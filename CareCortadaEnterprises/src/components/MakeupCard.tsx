@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCartIcon } from '@heroicons/react/20/solid';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from '../stores/cart';
+import { fetchMakeupBySlug } from '../services/api'; // Importar la función fetch
 
 interface MakeupCardProps {
   id: number;
@@ -12,12 +14,31 @@ interface MakeupCardProps {
 }
 
 const MakeupCard = ({ id, name, price, image, slug }: MakeupCardProps) => {
+  const [productDetail, setProductDetail] = useState<any>(null); // Estado para almacenar los detalles
   const carts = useSelector((state: any) => state.cart.items);
-  console.log(carts);
-
   const dispatch = useDispatch();
+
+  // Comprobar si el producto ya está en el carrito
+  const isInCart = carts.some((item: any) => item.productId === id);
+
+  // Cargar los detalles del producto usando fetch
+  useEffect(() => {
+    const loadProductDetail = async () => {
+      try {
+        const data = await fetchMakeupBySlug(slug);
+        setProductDetail(data); // Establecer los detalles del producto
+      } catch (error) {
+        console.error("Error al cargar el producto", error);
+      }
+    };
+    
+    loadProductDetail();
+  }, [slug]);
+
   const handleAddCart = () => {
-    dispatch(addToCart({ productId: id, quantity: 1 }));
+    if (!isInCart) {
+      dispatch(addToCart({ productId: id, quantity: 1 }));
+    }
   };
 
   return (
@@ -35,11 +56,12 @@ const MakeupCard = ({ id, name, price, image, slug }: MakeupCardProps) => {
           $<span className="text-2xl font-medium">{price.toFixed(2)}</span>
         </p>
         <button
-          className="bg-primary text-complement3 text-sm p-2 rounded-md hover:bg-secondary flex gap-2"
+          className={`bg-primary text-complement3 text-sm p-2 rounded-md hover:bg-secondary flex gap-2 ${isInCart ? 'bg-gray-500 cursor-not-allowed' : ''}`}
           onClick={handleAddCart}
+          disabled={isInCart} // Deshabilitar el botón si el producto ya está en el carrito
         >
           <ShoppingCartIcon className="w-5 text-complement3" />
-          Add to Cart
+          {isInCart ? 'Added' : 'Add to Cart'}
         </button>
       </div>
     </div>

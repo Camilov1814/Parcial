@@ -1,12 +1,12 @@
-import NavbarComp from "../components/Navbar"
-import { useState, useEffect } from "react"
-import MakeupCard from "../components/MakeupCard"
-import { CartTab } from "../components/CartTab"
-import { useSelector } from "react-redux"
-import { fetchMakeup } from "../services/api"// Asumiendo que fetchMakeup está correctamente importado
+import NavbarComp from "../components/Navbar";
+import { useState, useEffect } from "react";
+import MakeupCard from "../components/MakeupCard";
+import { CartTab } from "../components/CartTab";
+import { useSelector } from "react-redux";
+import { fetchMakeup } from "../services/api"; // Asumiendo que fetchMakeup está correctamente importado
 
 export const Makeup = () => {
-  const statusTabCart = useSelector((state: any) => state.cart.statusTab)
+  const statusTabCart = useSelector((state: any) => state.cart.statusTab);
   const [makeup, setMakeup] = useState<any[]>([]); // Cambié el tipo para manejar el array de productos
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'name' | 'price'>('name');
@@ -98,4 +98,4 @@ export const Makeup = () => {
       </div>
     </>
   );
-}
+};

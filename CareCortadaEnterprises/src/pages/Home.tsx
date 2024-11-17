@@ -1,16 +1,39 @@
 import MakeupCard from '../components/MakeupCard';
 import Navbar from '../components/Navbar';
-import { makeup } from '../products/makeup';
+import { useEffect, useState } from 'react';
 import { CartTab } from '../components/CartTab';
 import Carrousel from '../components/Carrousel';
+import { fetchMakeup } from '../services/api'; // Importa la función fetchMakeup desde api.ts
 
 const Home = () => {
+  const [makeup, setMakeup] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch makeup products from the API
+  useEffect(() => {
+    const fetchMakeupData = async () => {
+      try {
+        const data = await fetchMakeup(); // Llama a la función fetchMakeup
+        setMakeup(data); // Actualiza el estado con los productos de maquillaje
+        setLoading(false);
+      } catch (error: any) {
+        setError(error.message); // Captura el error y actualiza el estado
+        setLoading(false);
+      }
+    };
+
+    fetchMakeupData();
+  }, []); // Empty dependency array means this effect runs once when the component mounts
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <>
-      <div className="flex flex-col items-center ">  {/* Added padding */}
-      <CartTab />
+      <div className="flex flex-col items-center ">
+        <CartTab />
         <Navbar />
-        
 
         {/* Hero Section */}
         <section className="w-full bg-complement2 text-center py-20">
@@ -42,13 +65,13 @@ const Home = () => {
               Featured Products
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {makeup.slice(0, 4).map((product, key) => (
+              {makeup.slice(0, 4).map((product: any, key: number) => (
                 <MakeupCard
                   key={key}
                   id={product.id}
                   name={product.name}
-                  price={product.price}
-                  image={product.image}
+                  price={parseFloat(product.price)} // Asegúrate de que el precio sea un número
+                  image={product.imageUrl} // Asumiendo que 'imageUrl' es el campo para la imagen del producto
                   slug={product.slug}
                 />
               ))}
@@ -81,4 +104,4 @@ const Home = () => {
   );
 };
 
-export default Home;  
+export default Home;
