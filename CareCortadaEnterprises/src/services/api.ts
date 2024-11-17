@@ -32,6 +32,17 @@ export const fetchMakeup = async () => fetchTableData('makeup');
 export const fetchPhotos = async () => fetchTableData('photos');
 export const fetchEvents = async () => fetchTableData('events');
 
+// Función para obtener un modelo específico por su slug
+export const fetchModelBySlug = async (slug: string) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/models/${slug}`);
+    return response.data;  // Retorna el modelo encontrado
+  } catch (error) {
+    console.error(`Error fetching model with slug ${slug}:`, error);
+    throw error;  // Propagar el error para manejarlo en los componentes
+  }
+};
+
 // Función para agregar un nuevo evento (POST)
 export const addEvent = async (event: { date: string; location: string; models: string[]; image: string }) => {
   return postTableData('events', event);
