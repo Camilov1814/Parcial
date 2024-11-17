@@ -11,14 +11,9 @@ interface MakeupCardProps {
   slug: string;
 }
 
-const MakeupCard = (props: MakeupCardProps) => {
+const MakeupCard = ({ id, name, price, image, slug }: MakeupCardProps) => {
   const carts = useSelector((state: any) => state.cart.items);
   console.log(carts);
-  const id = props.id;
-  const name = props.name;
-  const price = props.price;
-  const image = props.image;
-  const slug = props.slug;
 
   const dispatch = useDispatch();
   const handleAddCart = () => {
@@ -27,7 +22,7 @@ const MakeupCard = (props: MakeupCardProps) => {
 
   return (
     <div className="bg-complement2 p-5 rounded-xl shadow-sm transition-transform transform hover:scale-105 hover:shadow-lg">
-      <Link to={slug}>
+      <Link to={`/makeup/${slug}`}>
         <img
           src={image}
           alt={name}
