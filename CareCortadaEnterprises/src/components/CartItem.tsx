@@ -1,9 +1,7 @@
-
 import { useEffect, useState } from "react";
-import { makeup } from "../products/makeup";
-import { initialPhotos } from "../products/photos";  // Importamos las fotos
 import { useDispatch } from "react-redux";
 import { changeQuantity } from "../stores/cart";
+import { fetchMakeup, fetchPhotos } from "../services/api";  // Funciones para obtener productos desde la API
 
 interface CartTabProps {
     productId: number;
@@ -14,12 +12,28 @@ export const CartItem = (props: CartTabProps) => {
     const productId = props.productId;
     const quantity = props.quantity;
     const [detail, setDetail] = useState<any>({});
+    const [loading, setLoading] = useState<boolean>(true);  // Estado para controlar la carga
+    const [error, setError] = useState<string>('');  // Estado para manejar errores
 
     useEffect(() => {
-        // Combinamos las listas de makeup y photos
-        const products = [...makeup, ...initialPhotos];  
-        const findDetail = products.find((product) => product.id === productId);
-        setDetail(findDetail);
+        const loadProductDetails = async () => {
+            try {
+                // Obtenemos los productos de la API
+                const makeupProducts = await fetchMakeup();
+                const photoProducts = await fetchPhotos();
+
+                // Combinamos las listas de productos
+                const products = [...makeupProducts, ...photoProducts];
+                const findDetail = products.find((product) => product.id === productId);
+                setDetail(findDetail);  // Establecemos el detalle del producto
+            } catch (error) {
+                setError('Error loading product details');  // Si ocurre un error, lo manejamos aquí
+            } finally {
+                setLoading(false);  // Terminamos el estado de carga
+            }
+        };
+
+        loadProductDetails();
     }, [productId]);
 
     const dispatch = useDispatch();
@@ -37,6 +51,14 @@ export const CartItem = (props: CartTabProps) => {
             quantity: quantity + 1
         }));
     };
+
+    if (loading) {
+        return <div>Loading product details...</div>;  // Mensaje mientras se cargan los detalles
+    }
+
+    if (error) {
+        return <div>{error}</div>;  // Mensaje si ocurre un error
+    }
 
     return (
         <div className="flex justify-between items-center bg-slate-600 text-white p-2 border-b-2 border-slate-700 gap-5 rounded-md">
