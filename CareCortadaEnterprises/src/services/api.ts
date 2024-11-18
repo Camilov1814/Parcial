@@ -44,16 +44,21 @@ export const fetchModelBySlug = async (slug: string) => {
 };
 
 export const fetchMakeupBySlug = async (slug: string) => {
-    try {
-        const response = await axios.get(`${BASE_URL}/makeup/${slug}`);
-        return response.data;  // Retorna el producto de maquillaje encontrado
-    } catch (error) {
-        console.error(`Error fetching makeup with slug ${slug}:`, error);
-        throw error;  // Propagar el error para manejarlo en los componentes
-    }
-    }
+  try {
+    const response = await axios.get(`${BASE_URL}/makeup/${slug}`);
+    return response.data;  // Retorna el producto de maquillaje encontrado
+  } catch (error) {
+    console.error(`Error fetching makeup with slug ${slug}:`, error);
+    throw error;  // Propagar el error para manejarlo en los componentes
+  }
+}
 
 // Función para agregar un nuevo evento (POST)
 export const addEvent = async (event: { date: string; location: string; models: string[]; image: string }) => {
   return postTableData('events', event);
+};
+
+// Función para agregar un nuevo contacto (POST)
+export const addContactUs = async (contact: { name: string; email: string; comment: string }) => {
+  return postTableData('contactus', contact);
 };

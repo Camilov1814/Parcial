@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { addContactUs } from '../services/api';  // Asegúrate de importar la función de tu archivo API
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
@@ -6,17 +7,36 @@ const ContactUs = () => {
         email: '',
         message: ''
     });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Aquí puedes agregar la lógica para enviar el formulario (API call, etc.)
-        console.log('Form submitted', formData);
-        // Limpiar el formulario
-        setFormData({ name: '', email: '', message: '' });
+        setLoading(true);
+        setError(null);
+        setSuccess(false);
+
+        try {
+            const contactData = {
+                name: formData.name,
+                email: formData.email,
+                comment: formData.message,  // Asegúrate de que el campo sea 'comment' para la tabla
+            };
+            // Realizar el POST al backend
+            await addContactUs(contactData);
+            setSuccess(true);
+            // Limpiar el formulario después de enviar
+            setFormData({ name: '', email: '', message: '' });
+        } catch (err) {
+            setError('There was an error submitting your message. Please try again.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -24,7 +44,7 @@ const ContactUs = () => {
             <div className="container mx-auto p-6">
                 <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
                 <p className="mb-6">We'd love to hear from you! For inquiries or bookings, please fill out the form below or contact us using the information provided.</p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Contact Form */}
                     <form className="bg-white p-6 rounded-lg shadow-md" onSubmit={handleSubmit}>
@@ -61,12 +81,26 @@ const ContactUs = () => {
                                 required
                             />
                         </div>
-                        <button
-                            type="submit"
-                            className="bg-primary text-white py-2 px-4 rounded-md hover:bg-secondary"
-                        >
-                            Send Message
-                        </button>
+
+                        {loading ? (
+                            <button
+                                type="button"
+                                className="bg-gray-500 text-white py-2 px-4 rounded-md cursor-not-allowed"
+                                disabled
+                            >
+                                Sending...
+                            </button>
+                        ) : (
+                            <button
+                                type="submit"
+                                className="bg-primary text-white py-2 px-4 rounded-md hover:bg-secondary"
+                            >
+                                Send Message
+                            </button>
+                        )}
+
+                        {success && <p className="text-green-500 mt-4">Your message has been sent successfully!</p>}
+                        {error && <p className="text-red-500 mt-4">{error}</p>}
                     </form>
 
                     {/* Contact Details */}
